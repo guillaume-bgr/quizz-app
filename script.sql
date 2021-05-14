@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS `questions`;
 
 CREATE TABLE `questions` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `question_category` VARCHAR(150) NOT NULL AUTO_INCREMENT,
+    `question_category` VARCHAR(150) NOT NULL,
     `theme_id` INT(11) NOT NULL,
     `question_cat_id` INT(11) NOT NULL,
     `question_type` ENUM('V-F', 'QCM') NULL,
@@ -28,9 +28,8 @@ CREATE TABLE `questions` (
     `option2` VARCHAR(150) NOT NULL,
     `option3` VARCHAR(150),
     `option4` VARCHAR(150),
-    `answer` VARCHAR(255) NOT NULL    
-    PRIMARY KEY(`id`),
-    CONSTRAINT `FK_theme_id` FOREIGN KEY (`theme_id`) REFERENCES `themes` (`theme_id`)
+    `answer` VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `themes`;
@@ -38,7 +37,7 @@ DROP TABLE IF EXISTS `themes`;
 CREATE TABLE `themes` (
     `theme_id` INT(11) NOT NULL,
     `theme` VARCHAR(150) NOT NULL,
-    `description` VARCHAR(255) NOT NULL
+    `description` VARCHAR(255) NOT NULL,
     PRIMARY KEY(`theme_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -47,7 +46,12 @@ DROP TABLE IF EXISTS `scores`;
 CREATE TABLE `scores` (
     `id` INT(11) NOT NULL,
     `user_id` INT(11) NOT NULL,
-    `scorevalue` INT(11) NOT NULL
-    PRIMARY KEY(`id`),
-    CONSTRAINT `FK_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+    `scorevalue` INT(11) NOT NULL,
+    PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `questions` 
+ADD CONSTRAINT `FK_theme_id` FOREIGN KEY (`theme_id`) REFERENCES `themes` (`theme_id`);
+
+ALTER TABLE `scores`
+ADD CONSTRAINT `FK_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
