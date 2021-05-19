@@ -9,7 +9,7 @@ $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
 
 define('SITE_URL', $url);
 
-require_once ROOT.'/librairies/database.php';
+require_once ROOT.'/libraries/database.php';
 // récupère le paramètre action passé en get grâce au htaccess
 $uri = $_GET['action'] ?? '';
 // rétire l'extension
